@@ -3,7 +3,7 @@
  * @package giorgosTsikPlugin 
  */
 
-namespace Inc;
+namespace Inc\Base;
 
 class Activate
 {

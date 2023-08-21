@@ -13,12 +13,38 @@ License: GPLv2 or later
 Text Domain:giorgosTsik-Plugin 
 */
 
+/*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Copyright 2005-2015 Automattic, Inc.
+*/
+
 if( !defined('ABSPATH') ){
 	die;
 }
 
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+}
+
+use Inc\Activate;
+use Inc\Deactivate;
+
 class GiorgosTsikPlugin
 {
+
 	//Constructor:
 	public function __construct(){
 		add_action('init',array($this,'custom_post_type'));//call this function on init
@@ -58,16 +84,9 @@ class GiorgosTsikPlugin
 	}
 
 	public function activate(){
-		//flush rewrite rules:
-		flush_rewrite_rules();
-	}
-
-	public function deactivate(){
-		flush_rewrite_rules();
-	}
-
-	static function delete(){
-
+		//call the static method of activate class:
+		  //require_once plugin_dir_path( __FILE__ ) . 'inc/Activate.php';
+		Activate::activate();
 	}
 
 	public function custom_post_type(){
@@ -108,9 +127,9 @@ if(class_exists('GiorgosTsikPlugin')){
 register_activation_hook(__FILE__, array( $instance , 'activate' ) );
 
 //deactivation:
-/*means that on deactivation will use the $instance for initialization and
-  will execute the deactivate function of this instance*/
-register_deactivation_hook(__FILE__, array( $instance , 'deactivate' ));
+/*means that on deactivation
+  will execute the deactivate static function of this class:*/
+register_deactivation_hook(__FILE__, array( 'Inc\Deactivate' , 'deactivate' ) );
 
 //deletion:
 //function in uninstall hook should be static

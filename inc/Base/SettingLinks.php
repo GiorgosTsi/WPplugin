@@ -5,10 +5,10 @@
 
 namespace Inc\Base;
 
-class SettingLinks
+class SettingLinks extends BaseController
 {
 	public function register() {
-		add_filter('plugin_action_links_' . PLUGIN ,array($this,'add_plugin_link'));
+		add_filter('plugin_action_links_' . $this->plugin ,array($this,'add_plugin_link'));
 	}
 
 	/**

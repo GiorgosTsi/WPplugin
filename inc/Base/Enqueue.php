@@ -7,7 +7,10 @@
 
 namespace Inc\Base;
 
-class Enqueue
+use Inc\Base\BaseController;
+
+
+class Enqueue extends BaseController
 {
 	public  function register() {
 		add_action('admin_enqueue_script',array($this,'enqueue'));
@@ -20,8 +23,8 @@ class Enqueue
 	private function enqueue(){
 
 		//enqueue css 
-		wp_enqueue_style('GiorgosStyle', PLUGIN_URL . 'assets/mystyle.css' );
+		wp_enqueue_style('GiorgosStyle', $this->plugin_url . 'assets/mystyle.css' );
 		//enqueue script
-		wp_enqueue_script('GiorgosScripts', PLUGIN_URL . 'assets/myscript.js');
+		wp_enqueue_script('GiorgosScripts', $this->plugin_url . 'assets/myscript.js');
 	}
 }

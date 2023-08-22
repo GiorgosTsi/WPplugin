@@ -6,7 +6,10 @@
 
 namespace Inc\Pages;
 
-class Admin
+use Inc\Base\BaseController;
+
+
+class Admin extends BaseController
 {
 
 	//add action for the admin page
@@ -21,7 +24,7 @@ class Admin
 	}
 
 	public function callback_for_plugin(){
-		require_once PLUGIN_PATH . '/templates/admin.php';
+		require_once $this->plugin_path . '/templates/admin.php';
 	}
 	
 }

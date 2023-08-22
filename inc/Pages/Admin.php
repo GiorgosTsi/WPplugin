@@ -8,6 +8,7 @@
 
 namespace Inc\Pages;
 
+use Inc\API\callbacks\AdminCallbacks;
 use Inc\Base\BaseController;
 use Inc\API\SettingApi;
 
@@ -23,10 +24,31 @@ class Admin extends BaseController
 
 	public $subpages = array();
 
-	public function __construct(){
+	public $callbacks;
 
+	//add action for the admin page
+	public function register(){
+
+		$this->callbacks =  new AdminCallbacks();
+		
 		$this->pageBuilder = new SettingApi();
 
+		$this->setPages();
+
+		$this->setSubPages();
+
+		/*Using method chaining */
+		$this->pageBuilder->addPages($this->pages)->withSubPages("Menu")->addSubPages($this->subpages)->register();//calls SettingApi's register method.
+
+		/*Without using method chaining(You should have call addPages earlier): */
+		//$this->pageBuilder->register();
+
+	}
+
+	/**
+	 * Method to set the Pages.
+	 *  */
+	public function setPages(){
 
 		/*Create the Menu pages */
 		$this->pages = array(
@@ -35,16 +57,19 @@ class Admin extends BaseController
 				'menu_title' => 'Giorghs', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'giorghs_plugin', 
-				'callback' => 	function() { 
-												echo " <h1>Main Page </h1>";
-												//require_once $this->plugin_path . '/templates/admin.php';
-												 }, 
+				'callback' => 	array($this->callbacks, 'adminDashboardCallback'), 
 				'icon_url' => 'dashicons-store', 
 				'position' => 110
 			)
 		);
 
+	}
 
+
+	/**
+	 * Method to set the subPages.
+	 *  */
+	public function setSubPages(){
 
 		/*Create the subMenu: */
 
@@ -55,7 +80,7 @@ class Admin extends BaseController
 				'menu_title' => 'CPT', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'giorghs_cpt', //url
-				'callback' => function() { echo '<h1>CPT Manager</h1>'; }
+				'callback' => array($this->callbacks, 'adminCpt')
 			),
 			array(
 				'parent_slug' => 'giorghs_plugin', 
@@ -63,7 +88,7 @@ class Admin extends BaseController
 				'menu_title' => 'Taxonomies', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'giorghs_taxonomies', //url
-				'callback' => function() { echo '<h1>Taxonomies Manager</h1>'; }
+				'callback' => array($this->callbacks, 'adminTaxonomy')
 			),
 			array(
 				'parent_slug' => 'giorghs_plugin', 
@@ -71,22 +96,9 @@ class Admin extends BaseController
 				'menu_title' => 'Widgets', 
 				'capability' => 'manage_options', 
 				'menu_slug' => 'giorghs_widgets', //url
-				'callback' => function() { echo '<h1>Widgets Manager</h1>'; }
+				'callback' => array($this->callbacks, 'adminWidget') 
 			)
 		);
-
-
-
-	}
-
-	//add action for the admin page
-	public function register(){
-		
-		/*Using method chaining */
-		$this->pageBuilder->addPages($this->pages)->withSubPages("Menu")->addSubPages($this->subpages)->register();//calls SettingApi's register method.
-
-		/*Without using method chaining(You should have call addPages earlier): */
-		//$this->pageBuilder->register();
 
 	}
 

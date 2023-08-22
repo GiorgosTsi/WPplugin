@@ -14,9 +14,9 @@ class Init
 	public static function get_services() 
 	{
 		return [
-			Inc\Pages\Admin::class,
-			Inc\Base\Enqueue::class,
-			Inc\Base\SettingLinks::class
+			Pages\Admin::class,
+			Base\Enqueue::class,
+			Base\SettingLinks::class
 		];
 	}
 

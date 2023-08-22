@@ -5,6 +5,8 @@
 
 namespace Inc\Base;
 
+use Inc\Base\BaseController;
+
 class SettingLinks extends BaseController
 {
 	public function register() {

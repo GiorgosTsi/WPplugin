@@ -21,11 +21,13 @@ class Admin extends BaseController
 
 	public $pages = array(); //initialize an empty page array.
 
+	public $subpages = array();
+
 	public function __construct(){
 
 		$this->pageBuilder = new SettingApi();
 
-		
+
 		/*Create the Menu pages */
 		$this->pages = array(
 			array(
@@ -34,12 +36,45 @@ class Admin extends BaseController
 				'capability' => 'manage_options', 
 				'menu_slug' => 'giorghs_plugin', 
 				'callback' => 	function() { 
-												require_once $this->plugin_path . '/templates/admin.php';
+												echo " <h1>Main Page </h1>";
+												//require_once $this->plugin_path . '/templates/admin.php';
 												 }, 
 				'icon_url' => 'dashicons-store', 
 				'position' => 110
 			)
 		);
+
+
+
+		/*Create the subMenu: */
+
+		$this->subpages = array(
+			array(
+				'parent_slug' => 'giorghs_plugin', 
+				'page_title' => 'Custom Post Types', 
+				'menu_title' => 'CPT', 
+				'capability' => 'manage_options', 
+				'menu_slug' => 'giorghs_cpt', //url
+				'callback' => function() { echo '<h1>CPT Manager</h1>'; }
+			),
+			array(
+				'parent_slug' => 'giorghs_plugin', 
+				'page_title' => 'Custom Taxonomies', 
+				'menu_title' => 'Taxonomies', 
+				'capability' => 'manage_options', 
+				'menu_slug' => 'giorghs_taxonomies', //url
+				'callback' => function() { echo '<h1>Taxonomies Manager</h1>'; }
+			),
+			array(
+				'parent_slug' => 'giorghs_plugin', 
+				'page_title' => 'Custom Widgets', 
+				'menu_title' => 'Widgets', 
+				'capability' => 'manage_options', 
+				'menu_slug' => 'giorghs_widgets', //url
+				'callback' => function() { echo '<h1>Widgets Manager</h1>'; }
+			)
+		);
+
 
 
 	}
@@ -48,7 +83,7 @@ class Admin extends BaseController
 	public function register(){
 		
 		/*Using method chaining */
-		$this->pageBuilder->addPages($this->pages)->register();//calls SettingApi's register method.
+		$this->pageBuilder->addPages($this->pages)->withSubPages("Menu")->addSubPages($this->subpages)->register();//calls SettingApi's register method.
 
 		/*Without using method chaining(You should have call addPages earlier): */
 		//$this->pageBuilder->register();

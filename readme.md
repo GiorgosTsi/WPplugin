@@ -10,5 +10,3 @@
 * Testimonial section: Comment in the front-end, ADmins can approve comments, select which comments to display
 * Custom template sections
 * Ajax based Login/Register system
-* Membership protected area
-* Chat system

@@ -13,7 +13,7 @@ class ManagerCallbacks extends BaseController
 	{
 		return ( isset($input) ? true : false );
 	}
-
+	
 	public function adminSectionManager()
 	{
 		echo 'Manage the Sections and Features of this Plugin by activating the checkboxes from the following list.';

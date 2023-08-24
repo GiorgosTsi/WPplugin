@@ -14,9 +14,18 @@ class Init
 	public static function get_services() 
 	{
 		return [
-			Pages\Admin::class,
-			Base\Enqueue::class,
-			Base\SettingLinks::class
+			Pages\Dashboard::class, //dashboard should be instantiated first.Main page should be created,before subpages.
+			Base\Enqueue::class,    //enqueues all the css and js scripts to our code
+			Base\SettingLinks::class, //setting the plugin's links
+			Base\CustomPostTypeController::class, //creates cpt managers subpage
+			Base\CustomTaxonomyController::class ,
+			Base\WidgetController::class,
+			Base\GalleryController::class,
+			Base\TestimonialController::class,
+			Base\TemplateController::class,
+			Base\AuthController::class,
+			Base\MembershipController::class,
+			Base\ChatController::class
 		];
 	}
 

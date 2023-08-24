@@ -31,25 +31,35 @@ class AdminCallbacks extends BaseController
 		require_once $this->plugin_path . '/templates/widget.php';
 	}
 
-
-	public function settingCallback($input){
-
-		return $input;
-	}
-	
-	public function sectionCallback(){
-		echo 'Section 1 settings:';
+	public function adminGallery()
+	{
+		echo "<h1>Gallery Manager</h1>";
 	}
 
-	public function fieldCallback(){
-
-		$value = esc_attr( get_option( 'text1' ) );
-		echo '<input type="text" class="regular-text" name="text1" value="' . $value . '" placeholder="Write Here!">';
+	public function adminTestimonial()
+	{
+		echo "<h1>Testimonial Manager</h1>";
 	}
 
-	public function fieldCallback2(){
-
-		$value = esc_attr( get_option( 'text2' ) );
-		echo '<input type="text" class="regular-text" name="text2" value="' . $value . '" placeholder="Write Here!">';
+	public function adminTemplates()
+	{
+		echo "<h1>Templates Manager</h1>";
 	}
+
+	public function adminAuth()
+	{
+		echo "<h1>Login Manager</h1>";
+	}
+
+	public function adminMembership()
+	{
+		echo "<h1>Membership Manager</h1>";
+	}
+
+	public function adminChat()
+	{
+		echo "<h1>Chat Manager</h1>";
+	}
+
 }
+

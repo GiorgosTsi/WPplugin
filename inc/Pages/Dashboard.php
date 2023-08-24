@@ -15,7 +15,7 @@ use Inc\API\SettingApi;
 
 
 
-class Admin extends BaseController
+class Dashboard extends BaseController
 {
 
 
@@ -23,7 +23,7 @@ class Admin extends BaseController
 
 	public $pages = array(); //initialize an empty page array.
 
-	public $subpages = array();
+	//public $subpages = array();
 
 	public $callbacks;
 
@@ -40,7 +40,7 @@ class Admin extends BaseController
 
 		$this->setPages();
 
-		$this->setSubPages();
+		//$this->setSubPages();
 
 		$this->setSettings();
 
@@ -49,7 +49,7 @@ class Admin extends BaseController
 		$this->setFields();
 
 		/*Using method chaining */
-		$this->pageBuilder->addPages($this->pages)->withSubPages("Menu")->addSubPages($this->subpages)->register();//calls SettingApi's register method.
+		$this->pageBuilder->addPages($this->pages)->withSubPages("Menu")->register();//calls SettingApi's register method.
 
 		/*Without using method chaining(You should have call addPages earlier): */
 		//$this->pageBuilder->register();
@@ -80,38 +80,38 @@ class Admin extends BaseController
 	/**
 	 * Method to set the subPages.
 	 *  */
-	public function setSubPages(){
+	// public function setSubPages(){
 
-		/*Create the subMenu: */
+	// 	/*Create the subMenu: */
 
-		$this->subpages = array(
-			array(
-				'parent_slug' => 'giorghs_plugin', 
-				'page_title' => 'Custom Post Types', 
-				'menu_title' => 'CPT', 
-				'capability' => 'manage_options', 
-				'menu_slug' => 'giorghs_cpt', //url
-				'callback' => array($this->callbacks, 'adminCpt')
-			),
-			array(
-				'parent_slug' => 'giorghs_plugin', 
-				'page_title' => 'Custom Taxonomies', 
-				'menu_title' => 'Taxonomies', 
-				'capability' => 'manage_options', 
-				'menu_slug' => 'giorghs_taxonomies', //url
-				'callback' => array($this->callbacks, 'adminTaxonomy')
-			),
-			array(
-				'parent_slug' => 'giorghs_plugin', 
-				'page_title' => 'Custom Widgets', 
-				'menu_title' => 'Widgets', 
-				'capability' => 'manage_options', 
-				'menu_slug' => 'giorghs_widgets', //url
-				'callback' => array($this->callbacks, 'adminWidget') 
-			)
-		);
+	// 	$this->subpages = array(
+	// 		array(
+	// 			'parent_slug' => 'giorghs_plugin', 
+	// 			'page_title' => 'Custom Post Types', 
+	// 			'menu_title' => 'CPT', 
+	// 			'capability' => 'manage_options', 
+	// 			'menu_slug' => 'giorghs_cpt', //url
+	// 			'callback' => array($this->callbacks, 'adminCpt')
+	// 		),
+	// 		array(
+	// 			'parent_slug' => 'giorghs_plugin', 
+	// 			'page_title' => 'Custom Taxonomies', 
+	// 			'menu_title' => 'Taxonomies', 
+	// 			'capability' => 'manage_options', 
+	// 			'menu_slug' => 'giorghs_taxonomies', //url
+	// 			'callback' => array($this->callbacks, 'adminTaxonomy')
+	// 		),
+	// 		array(
+	// 			'parent_slug' => 'giorghs_plugin', 
+	// 			'page_title' => 'Custom Widgets', 
+	// 			'menu_title' => 'Widgets', 
+	// 			'capability' => 'manage_options', 
+	// 			'menu_slug' => 'giorghs_widgets', //url
+	// 			'callback' => array($this->callbacks, 'adminWidget') 
+	// 		)
+	// 	);
 
-	}
+	// }
 
 
 	public function setSettings(){

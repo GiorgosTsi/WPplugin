@@ -30,7 +30,7 @@ class SettingApi
 	{
 
 		// if we have pages to add , add them to the dashboard.
-		if ( ! empty($this->admin_pages) ) {
+		if ( ! empty($this->admin_pages)  || ! empty($this->admin_sub_pages) ){
 			add_action( 'admin_menu', array( $this, 'addAdminMenu' ) );
 		}
 

@@ -33,7 +33,7 @@ class Dashboard extends BaseController
 	public function register(){
 
 		$this->callbacks =  new AdminCallbacks();
-
+		
 		$this->callbacks_mngr = new ManagerCallbacks();
 		
 		$this->pageBuilder = new SettingApi();
@@ -73,7 +73,7 @@ class Dashboard extends BaseController
 				'position' => 110
 			)
 		);
-
+		
 	}
 
 

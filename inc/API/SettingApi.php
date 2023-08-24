@@ -61,7 +61,7 @@ class SettingApi
 
 		//add all the extra input subPages
 		$this->admin_sub_pages = array_merge( $this->admin_sub_pages, $subPages );
-
+		
 		return $this;
 	}
 

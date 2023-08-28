@@ -28,6 +28,7 @@ class BaseController
 		$this->managers = array(
 			'cpt_manager' => 'Activate CPT Manager',
 			'post_tag_filter'=>'Tag Filter in Posts',
+			'invert_post_tag_filter'=>' Invert Tag Filter in Posts',
 			'page_tag_filter'=>'Tag Filter on Pages',
 			'taxonomy_manager' => 'Activate Taxonomy Manager',
 			'media_widget' => 'Activate Widget Manager',

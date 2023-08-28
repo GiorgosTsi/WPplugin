@@ -27,7 +27,8 @@ class Init
 			Base\MembershipController::class,
 			Base\ChatController::class,
 			Base\PostTagFilter::class,
-			Base\PageTagFilter::class
+			Base\PageTagFilter::class,
+			Base\InvertPostTagFilter::class
 		];
 	}
 

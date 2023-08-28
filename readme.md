@@ -4,6 +4,9 @@
 
 * Modular Administration Area
 * CPT Manager
+* Tag Filter on Posts Admin Page
+* Inverted Tag Filter on Posts Admin Page
+* Tag Filter on Pages Admin Page
 * Custom Taxonomy Manager
 * Widget to Upload and Diaply media in sidebars
 * Post and Pages Gallery integration

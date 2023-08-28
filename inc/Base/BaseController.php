@@ -27,6 +27,8 @@ class BaseController
 		/*Used to avoid repetition on Admin.php while adding settings. */
 		$this->managers = array(
 			'cpt_manager' => 'Activate CPT Manager',
+			'post_tag_filter'=>'Tag Filter in Posts',
+			'page_tag_filter'=>'Tag Filter on Pages',
 			'taxonomy_manager' => 'Activate Taxonomy Manager',
 			'media_widget' => 'Activate Widget Manager',
 			'gallery_manager' => 'Activate Gallery Manager',

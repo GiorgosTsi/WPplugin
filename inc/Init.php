@@ -25,7 +25,9 @@ class Init
 			Base\TemplateController::class,
 			Base\AuthController::class,
 			Base\MembershipController::class,
-			Base\ChatController::class
+			Base\ChatController::class,
+			Base\PostTagFilter::class,
+			Base\PageTagFilter::class
 		];
 	}
 

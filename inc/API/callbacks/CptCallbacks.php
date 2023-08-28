@@ -16,19 +16,17 @@ class CptCallbacks
 
 	public function cptSanitize( $input )
 	{
-		$sanitized_input = array();
+		$output = get_option('giorghs_plugin_cpt');
 
-	    // Sanitize text input
-	    if ( isset( $input['text_option'] ) ) {
-	        $sanitized_input['text_option'] = sanitize_text_field( $input['text_option'] );
-	    }
-
-	    // Sanitize checkbox input
-	    if ( isset( $input['checkbox_option'] ) ) {
-	        $sanitized_input['checkbox_option'] = ( $input['checkbox_option'] === '1' ) ? '1' : '0';
-	    }
-
-	    return $sanitized_input;
+		foreach ($output as $key => $value) {
+			if ($input['post_type'] === $key) {
+				$output[$key] = $input;
+			} else {
+				$output[$input['post_type']] = $input;
+			}
+		}
+		
+		return $output;
 	}
 
 	public function textField( $args )
@@ -47,7 +45,7 @@ class CptCallbacks
 		$option_name = $args['option_name'];
 		$checkbox = get_option( $option_name );
 
-		echo '<input type="checkbox" name="' . $name . '" value="1" class="' . $classes . '" ' . ($checkbox ? 'checked' : '') . '>';
+		echo '<div class="' . $classes . '"><input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class=""><label for="' . $name . '"><div></div></label></div>';
 	}
 }
 

@@ -24,7 +24,7 @@ class Init
 			Base\CustomTaxonomyController::class ,
 			// Base\WidgetController::class,
 			// Base\GalleryController::class,
-			// Base\TestimonialController::class,
+			Base\TestimonialController::class,
 			// Base\TemplateController::class,
 			// Base\AuthController::class,
 			// Base\MembershipController::class,

@@ -31,13 +31,13 @@ class BaseController
 			'invert_post_tag_filter'=>' Invert Tag Filter in Posts',
 			'page_tag_filter'=>'Tag Filter on Pages',
 			'taxonomy_manager' => 'Activate Taxonomy Manager',
-			'media_widget' => 'Activate Widget Manager',
-			'gallery_manager' => 'Activate Gallery Manager',
+			//'media_widget' => 'Activate Widget Manager',
+			//'gallery_manager' => 'Activate Gallery Manager',
 			'testimonial_manager' => 'Activate Testimonial Manager',
-			'templates_manager' => 'Activate Templates Manager',
-			'login_manager' => 'Activate Ajax Login/Signup',
-			'membership_manager' => 'Activate Membership Manager',
-			'chat_manager' => 'Activate Chat Manager'
+			//'templates_manager' => 'Activate Templates Manager',
+			//'login_manager' => 'Activate Ajax Login/Signup',
+			//'membership_manager' => 'Activate Membership Manager',
+			//'chat_manager' => 'Activate Chat Manager'
 		);
 	}
 }

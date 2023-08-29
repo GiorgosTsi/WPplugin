@@ -9,17 +9,13 @@ use Inc\Base\BaseController;
 use Inc\Api\Callbacks\AdminCallbacks;
 
 /**
-* Class used to activate and deactivate the taxonomy tab from the dashboard.
-* Also creates the subpage for the taxonomy tab.
+* Class used to activate and deactivate the testimonial cpt tab from the dashboard.
 */
 class TestimonialController extends BaseController{
 
 	public $callbacks;
 
-	public $subpages = array();
-
 	public $settings;
-
 
 	public function register(){
 
@@ -29,33 +25,37 @@ class TestimonialController extends BaseController{
 		$checkbox = get_option( 'testimonial_manager' );
 		if(! $checkbox ) return;
 
-		//if checkbox is checked, show the cpt manager page
+		//if checkbox is checked, show the testimonial manager page
 
 		$this->callbacks = new AdminCallbacks();
 
-		$this->setSubPages();
-
 		$this->settings = new SettingApi();
 
-		//add subpage to the dashboard of the plugin:
-		$this->settings->addSubPages($this->subpages)->register();
+		//create the new testimonial cpt.
+		add_action( 'init', array( $this, 'testimonial_cpt' ) );
+		
 
 	}
 
-	public function setSubpages()
+	public function testimonial_cpt ()
 	{
-		$this->subpages = array(
-			array(
-				'parent_slug' => 'giorghs_plugin', 
-	 			'page_title' => 'Testimonial Manager', 
-	 			'menu_title' => 'Testimonial Manager', 
-	 			'capability' => 'manage_options', 
-	 			'menu_slug' => 'giorghs_testimonials', //url
-	 			'callback' => array($this->callbacks, 'adminTestimonial')
-			)
+		$labels = array(
+			'name' => 'Testimonials',
+			'singular_name' => 'Testimonial'
 		);
-	}
 
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'has_archive' => false,
+			'menu_icon' => 'dashicons-testimonial',
+			'exclude_from_search' => true,
+			'publicly_queryable' => false,
+			'supports' => array( 'title', 'editor' )
+		);
+
+		register_post_type ( 'testimonial', $args );
+	}
 
 
 }

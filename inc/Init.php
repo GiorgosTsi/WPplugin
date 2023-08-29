@@ -21,7 +21,7 @@ class Init
 			Base\PostTagFilter::class,
 			Base\PageTagFilter::class,
 			Base\InvertPostTagFilter::class,
-			// Base\CustomTaxonomyController::class ,
+			Base\CustomTaxonomyController::class ,
 			// Base\WidgetController::class,
 			// Base\GalleryController::class,
 			// Base\TestimonialController::class,

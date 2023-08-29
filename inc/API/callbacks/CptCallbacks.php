@@ -25,8 +25,14 @@ class CptCallbacks
 			return $output;
 		}
 
-		if (  !$output || count($output) == 0 ) {
+		if (  !$output ) {
 			$output = array();
+			$output[$input['post_type']] = $input;
+
+			return $output;
+		}
+
+		if(count($output) == 0){
 			$output[$input['post_type']] = $input;
 
 			return $output;

@@ -18,17 +18,17 @@ class Init
 			Base\Enqueue::class,    //enqueues all the css and js scripts to our code
 			Base\SettingLinks::class, //setting the plugin's links
 			Base\CustomPostTypeController::class, //creates cpt managers subpage
-			Base\CustomTaxonomyController::class ,
-			Base\WidgetController::class,
-			Base\GalleryController::class,
-			Base\TestimonialController::class,
-			Base\TemplateController::class,
-			Base\AuthController::class,
-			Base\MembershipController::class,
-			Base\ChatController::class,
 			Base\PostTagFilter::class,
 			Base\PageTagFilter::class,
-			Base\InvertPostTagFilter::class
+			Base\InvertPostTagFilter::class,
+			// Base\CustomTaxonomyController::class ,
+			// Base\WidgetController::class,
+			// Base\GalleryController::class,
+			// Base\TestimonialController::class,
+			// Base\TemplateController::class,
+			// Base\AuthController::class,
+			// Base\MembershipController::class,
+			// Base\ChatController::class
 		];
 	}
 

@@ -1,6 +1,6 @@
 <?php 
 /**
- * @package  AlecadddPlugin
+ * @package  GiorgosTsikPlugin
  */
 namespace Inc\Base;
 
@@ -23,6 +23,7 @@ class CustomPostTypeController extends BaseController
 	public $subpages = array();
 
 	public $custom_post_types = array();
+
 
 	public function register()
 	{
@@ -60,7 +61,7 @@ class CustomPostTypeController extends BaseController
 				'page_title' => 'Custom Post Types', 
 				'menu_title' => 'CPT Manager', 
 				'capability' => 'manage_options', 
-				'menu_slug' => 'giorghs_cpt', 
+				'menu_slug' => 'giorghs_cpt', //url
 				'callback' => array( $this->callbacks, 'adminCpt' )
 			)
 		);
@@ -71,13 +72,14 @@ class CustomPostTypeController extends BaseController
 		$args = array(
 			array(
 				'option_group' => 'giorghs_plugin_cpt_settings',
-				'option_name' => 'alecaddd_plugin_cpt',
+				'option_name' => 'giorghs_plugin_cpt',
 				'callback' => array( $this->cpt_callbacks, 'cptSanitize' )
 			)
 		);
 
 		$this->settings->setSettings( $args );
 	}
+
 
 	public function setSections()
 	{
@@ -103,7 +105,7 @@ class CustomPostTypeController extends BaseController
 				'page' => 'giorghs_cpt',
 				'section' => 'alecaddd_cpt_index',
 				'args' => array(
-					'option_name' => 'alecaddd_plugin_cpt',
+					'option_name' => 'giorghs_plugin_cpt',
 					'label_for' => 'post_type',
 					'placeholder' => 'eg. product',
 					'array' => 'post_type'
@@ -116,7 +118,7 @@ class CustomPostTypeController extends BaseController
 				'page' => 'giorghs_cpt',
 				'section' => 'alecaddd_cpt_index',
 				'args' => array(
-					'option_name' => 'alecaddd_plugin_cpt',
+					'option_name' => 'giorghs_plugin_cpt',
 					'label_for' => 'singular_name',
 					'placeholder' => 'eg. Product',
 					'array' => 'post_type'
@@ -129,7 +131,7 @@ class CustomPostTypeController extends BaseController
 				'page' => 'giorghs_cpt',
 				'section' => 'alecaddd_cpt_index',
 				'args' => array(
-					'option_name' => 'alecaddd_plugin_cpt',
+					'option_name' => 'giorghs_plugin_cpt',
 					'label_for' => 'plural_name',
 					'placeholder' => 'eg. Products',
 					'array' => 'post_type'
@@ -142,7 +144,7 @@ class CustomPostTypeController extends BaseController
 				'page' => 'giorghs_cpt',
 				'section' => 'alecaddd_cpt_index',
 				'args' => array(
-					'option_name' => 'alecaddd_plugin_cpt',
+					'option_name' => 'giorghs_plugin_cpt',
 					'label_for' => 'public',
 					'class' => 'ui-toggle',
 					'array' => 'post_type'
@@ -155,7 +157,7 @@ class CustomPostTypeController extends BaseController
 				'page' => 'giorghs_cpt',
 				'section' => 'alecaddd_cpt_index',
 				'args' => array(
-					'option_name' => 'alecaddd_plugin_cpt',
+					'option_name' => 'giorghs_plugin_cpt',
 					'label_for' => 'has_archive',
 					'class' => 'ui-toggle',
 					'array' => 'post_type'
@@ -168,59 +170,59 @@ class CustomPostTypeController extends BaseController
 
 	public function storeCustomPostTypes()
 	{
-		$options = get_option('alecaddd_plugin_cpt');
+		$options = get_option( 'giorghs_plugin_cpt' ) ;
+		//options is false if the setting does not exist.
+		
+		if(is_array($options))
+			foreach ($options as $option) {
 
-		//if(!$options) die();
-
-		foreach ($options as $option) {
-
-			$this->custom_post_types[] = array(
-				'post_type'             => $option['post_type'],
-				'name'                  => $option['plural_name'],
-				'singular_name'         => $option['singular_name'],
-				'menu_name'             => $option['plural_name'],
-				'name_admin_bar'        => $option['singular_name'],
-				'archives'              => $option['singular_name'] . ' Archives',
-				'attributes'            => $option['singular_name'] . ' Attributes',
-				'parent_item_colon'     => 'Parent ' . $option['singular_name'],
-				'all_items'             => 'All ' . $option['plural_name'],
-				'add_new_item'          => 'Add New ' . $option['singular_name'],
-				'add_new'               => 'Add New',
-				'new_item'              => 'New ' . $option['singular_name'],
-				'edit_item'             => 'Edit ' . $option['singular_name'],
-				'update_item'           => 'Update ' . $option['singular_name'],
-				'view_item'             => 'View ' . $option['singular_name'],
-				'view_items'            => 'View ' . $option['plural_name'],
-				'search_items'          => 'Search ' . $option['plural_name'],
-				'not_found'             => 'No ' . $option['singular_name'] . ' Found',
-				'not_found_in_trash'    => 'No ' . $option['singular_name'] . ' Found in Trash',
-				'featured_image'        => 'Featured Image',
-				'set_featured_image'    => 'Set Featured Image',
-				'remove_featured_image' => 'Remove Featured Image',
-				'use_featured_image'    => 'Use Featured Image',
-				'insert_into_item'      => 'Insert into ' . $option['singular_name'],
-				'uploaded_to_this_item' => 'Upload to this ' . $option['singular_name'],
-				'items_list'            => $option['plural_name'] . ' List',
-				'items_list_navigation' => $option['plural_name'] . ' List Navigation',
-				'filter_items_list'     => 'Filter' . $option['plural_name'] . ' List',
-				'label'                 => $option['singular_name'],
-				'description'           => $option['plural_name'] . 'Custom Post Type',
-				'supports'              => array( 'title', 'editor', 'thumbnail' ),
-				'taxonomies'            => array( 'category', 'post_tag' ),
-				'hierarchical'          => false,
-				'public'                => $option['public'],
-				'show_ui'               => true,
-				'show_in_menu'          => true,
-				'menu_position'         => 5,
-				'show_in_admin_bar'     => true,
-				'show_in_nav_menus'     => true,
-				'can_export'            => true,
-				'has_archive'           => $option['has_archive'],
-				'exclude_from_search'   => false,
-				'publicly_queryable'    => true,
-				'capability_type'       => 'post'
-			);
-		}
+					$this->custom_post_types[] = array(
+					'post_type'             => $option['post_type'],
+					'name'                  => $option['plural_name'],
+					'singular_name'         => $option['singular_name'],
+					'menu_name'             => $option['plural_name'],
+					'name_admin_bar'        => $option['singular_name'],
+					'archives'              => $option['singular_name'] . ' Archives',
+					'attributes'            => $option['singular_name'] . ' Attributes',
+					'parent_item_colon'     => 'Parent ' . $option['singular_name'],
+					'all_items'             => 'All ' . $option['plural_name'],
+					'add_new_item'          => 'Add New ' . $option['singular_name'],
+					'add_new'               => 'Add New',
+					'new_item'              => 'New ' . $option['singular_name'],
+					'edit_item'             => 'Edit ' . $option['singular_name'],
+					'update_item'           => 'Update ' . $option['singular_name'],
+					'view_item'             => 'View ' . $option['singular_name'],
+					'view_items'            => 'View ' . $option['plural_name'],
+					'search_items'          => 'Search ' . $option['plural_name'],
+					'not_found'             => 'No ' . $option['singular_name'] . ' Found',
+					'not_found_in_trash'    => 'No ' . $option['singular_name'] . ' Found in Trash',
+					'featured_image'        => 'Featured Image',
+					'set_featured_image'    => 'Set Featured Image',
+					'remove_featured_image' => 'Remove Featured Image',
+					'use_featured_image'    => 'Use Featured Image',
+					'insert_into_item'      => 'Insert into ' . $option['singular_name'],
+					'uploaded_to_this_item' => 'Upload to this ' . $option['singular_name'],
+					'items_list'            => $option['plural_name'] . ' List',
+					'items_list_navigation' => $option['plural_name'] . ' List Navigation',
+					'filter_items_list'     => 'Filter' . $option['plural_name'] . ' List',
+					'label'                 => $option['singular_name'],
+					'description'           => $option['plural_name'] . 'Custom Post Type',
+					'supports'              => array( 'title', 'editor', 'thumbnail' ),
+					'taxonomies'            => array( 'category', 'post_tag' ),
+					'hierarchical'          => false,
+					'public'                => isset($option['public']) ?: false,
+					'show_ui'               => true,
+					'show_in_menu'          => true,
+					'menu_position'         => 5,
+					'show_in_admin_bar'     => true,
+					'show_in_nav_menus'     => true,
+					'can_export'            => true,
+					'has_archive'           => isset($option['has_archive']) ?: false,
+					'exclude_from_search'   => false,
+					'publicly_queryable'    => true,
+					'capability_type'       => 'post'
+					);
+			}
 	}
 
 	public function registerCustomPostTypes()

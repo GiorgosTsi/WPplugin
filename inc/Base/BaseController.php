@@ -25,6 +25,7 @@ class BaseController
 		$this->plugin = plugin_basename( dirname( __FILE__, 3 ) ). '/giorgosTsik-plugin.php';
 
 		/*Used to avoid repetition on Admin.php while adding settings. */
+		//Uncomment the manager you want,to show the checkbox to the admin page.
 		$this->managers = array(
 			'cpt_manager' => 'Activate CPT Manager',
 			'post_tag_filter'=>'Tag Filter in Posts',

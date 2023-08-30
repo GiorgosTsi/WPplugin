@@ -6,7 +6,7 @@ namespace Inc\Base;
 
 use Inc\Api\SettingApi;
 use Inc\Base\BaseController;
-use Inc\Api\Callbacks\AdminCallbacks;
+use Inc\Api\Callbacks\TestimonialCallbacks;
 
 /**
 * Class used to activate and deactivate the testimonial cpt tab from the dashboard.
@@ -16,6 +16,9 @@ class TestimonialController extends BaseController{
 	public $callbacks;
 
 	public $settings;
+
+	public $subpage;
+
 
 	public function register(){
 
@@ -27,8 +30,7 @@ class TestimonialController extends BaseController{
 
 		//if checkbox is checked, show the testimonial manager page
 
-
-		$this->callbacks = new AdminCallbacks();
+		$this->callbacks = new TestimonialCallbacks();
 
 		$this->settings = new SettingApi();
 
@@ -50,6 +52,40 @@ class TestimonialController extends BaseController{
 		//set the custom columns to be sortable (alphabetically) 
 		add_filter( 'manage_edit-testimonial_sortable_columns', array( $this, 'set_custom_columns_sortable' ) );
 
+		//set the shortcode page:
+		$this->setShortcodePage();
+
+		//create the shortcode
+		add_shortcode( 'testimonial-form', array( $this, 'testimonial_form' ) );
+	}
+
+
+	public function testimonial_form()
+	{
+		ob_start();
+		require_once( "$this->plugin_path/templates/contact-form.php" );
+		//load js file.
+		echo "<script src=\"$this->plugin_url/assets/form.js\"></script>";
+		return ob_get_clean(); 
+	}
+
+	/**
+	 * Set the shortcode page.
+	 * */
+	public function setShortcodePage()
+	{
+		$subpage = array(
+			array(
+				'parent_slug' => 'edit.php?post_type=testimonial',
+				'page_title' => 'Shortcodes',
+				'menu_title' => 'Shortcodes',
+				'capability' => 'manage_options',
+				'menu_slug' => 'giorghs_testimonial_shortcode',
+				'callback' => array( $this->callbacks, 'shortcodePage' )
+			)
+		);
+
+		$this->settings->addSubPages( $subpage )->register();
 	}
 
 	public function testimonial_cpt ()

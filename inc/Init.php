@@ -39,6 +39,8 @@ class Init
 	 */
 	public static function register_services() 
 	{
+		// $postypes = get_post_types( array( 'public' => true ), 'objects' );
+		// var_dump($postypes);
 		foreach ( self::get_services() as $class ) {
 			$service = self::instantiate( $class );
 			if ( method_exists( $service, 'register' ) ) {
